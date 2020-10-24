@@ -1,0 +1,10 @@
+<p>google-map-view works!</p>
+
+<agm-map [latitude]="lat" [longitude]="lng">
+    <agm-marker  *ngFor="let item of marcadores"  [latitude]="item.lat" [longitude]="item.lng">
+        <agm-info-window>{{item.obs}}</agm-info-window>
+
+    </agm-marker>
+  </agm-map>
+
+  

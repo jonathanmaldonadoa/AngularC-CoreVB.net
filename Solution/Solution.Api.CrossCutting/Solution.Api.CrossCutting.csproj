@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Solution.Api.Application.Contracts\Solution.Api.Application.Contracts.csproj" />
+    <ProjectReference Include="..\Solution.Api.Application\Solution.Api.Application.csproj" />
+    <ProjectReference Include="..\Solution.Api.DataAccess.Contracts\Solution.Api.DataAccess.Contracts.csproj" />
+    <ProjectReference Include="..\Solution.Api.DataAccess\Solution.Api.DataAccess.csproj" />
+  </ItemGroup>
+
+</Project>

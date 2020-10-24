@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Mappers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Device.Location.Portable" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Solution.Api.Application.Contracts\Solution.Api.Application.Contracts.csproj" />
+    <ProjectReference Include="..\Solution.Api.Business\Solution.Api.Business.csproj" />
+    <ProjectReference Include="..\Solution.Api.DataAccess.Contracts\Solution.Api.DataAccess.Contracts.csproj" />
+    <ProjectReference Include="..\Solution.Api.DataAccess\Solution.Api.DataAccess.csproj" />
+  </ItemGroup>
+
+</Project>

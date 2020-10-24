@@ -1,0 +1,342 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SOLUTIONModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="EMPRESAS">
+          <Key>
+            <PropertyRef Name="EmpresaID" />
+          </Key>
+          <Property Name="EmpresaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmpresaNombre" Type="nvarchar(max)" />
+          <Property Name="EmpresaEstado" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="PERSONA">
+          <Key>
+            <PropertyRef Name="PersonaID" />
+          </Key>
+          <Property Name="PersonaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PersonaNombre" Type="nvarchar(max)" />
+          <Property Name="PersonaApelliso" Type="nvarchar(max)" />
+          <Property Name="PersonaNroDocumento" Type="nvarchar(max)" />
+          <Property Name="EmpresaID" Type="int" Nullable="false" />
+          <Property Name="TipoDocumentoID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TIPODOCUMENTO">
+          <Key>
+            <PropertyRef Name="TipoDocumentoID" />
+          </Key>
+          <Property Name="TipoDocumentoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TipoDocumentoNombre" Type="nvarchar(max)" />
+          <Property Name="EmpresaID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UBICACION">
+          <Key>
+            <PropertyRef Name="UbicacionID" />
+          </Key>
+          <Property Name="UbicacionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UbicacionLongitud" Type="nvarchar(max)" />
+          <Property Name="UbicacionLatitud" Type="nvarchar(max)" />
+          <Property Name="UbicacionObservaciones" Type="nvarchar(max)" />
+          <Property Name="PersonaID" Type="int" Nullable="false" />
+          <Property Name="EmpresaID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_PERSONA_EMPRESAS_EmpresaID">
+          <End Role="EMPRESAS" Type="Self.EMPRESAS" Multiplicity="1" />
+          <End Role="PERSONA" Type="Self.PERSONA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPRESAS">
+              <PropertyRef Name="EmpresaID" />
+            </Principal>
+            <Dependent Role="PERSONA">
+              <PropertyRef Name="EmpresaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PERSONA_TIPODOCUMENTO_TipoDocumentoID">
+          <End Role="TIPODOCUMENTO" Type="Self.TIPODOCUMENTO" Multiplicity="1" />
+          <End Role="PERSONA" Type="Self.PERSONA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIPODOCUMENTO">
+              <PropertyRef Name="TipoDocumentoID" />
+            </Principal>
+            <Dependent Role="PERSONA">
+              <PropertyRef Name="TipoDocumentoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TIPODOCUMENTO_EMPRESAS_EmpresaID">
+          <End Role="EMPRESAS" Type="Self.EMPRESAS" Multiplicity="1" />
+          <End Role="TIPODOCUMENTO" Type="Self.TIPODOCUMENTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPRESAS">
+              <PropertyRef Name="EmpresaID" />
+            </Principal>
+            <Dependent Role="TIPODOCUMENTO">
+              <PropertyRef Name="EmpresaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UBICACION_EMPRESAS_EmpresaID">
+          <End Role="EMPRESAS" Type="Self.EMPRESAS" Multiplicity="1" />
+          <End Role="UBICACION" Type="Self.UBICACION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPRESAS">
+              <PropertyRef Name="EmpresaID" />
+            </Principal>
+            <Dependent Role="UBICACION">
+              <PropertyRef Name="EmpresaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UBICACION_PERSONA_PersonaID">
+          <End Role="PERSONA" Type="Self.PERSONA" Multiplicity="1" />
+          <End Role="UBICACION" Type="Self.UBICACION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PERSONA">
+              <PropertyRef Name="PersonaID" />
+            </Principal>
+            <Dependent Role="UBICACION">
+              <PropertyRef Name="PersonaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SOLUTIONModelStoreContainer">
+          <EntitySet Name="EMPRESAS" EntityType="Self.EMPRESAS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PERSONA" EntityType="Self.PERSONA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TIPODOCUMENTO" EntityType="Self.TIPODOCUMENTO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UBICACION" EntityType="Self.UBICACION" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_PERSONA_EMPRESAS_EmpresaID" Association="Self.FK_PERSONA_EMPRESAS_EmpresaID">
+            <End Role="EMPRESAS" EntitySet="EMPRESAS" />
+            <End Role="PERSONA" EntitySet="PERSONA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PERSONA_TIPODOCUMENTO_TipoDocumentoID" Association="Self.FK_PERSONA_TIPODOCUMENTO_TipoDocumentoID">
+            <End Role="TIPODOCUMENTO" EntitySet="TIPODOCUMENTO" />
+            <End Role="PERSONA" EntitySet="PERSONA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TIPODOCUMENTO_EMPRESAS_EmpresaID" Association="Self.FK_TIPODOCUMENTO_EMPRESAS_EmpresaID">
+            <End Role="EMPRESAS" EntitySet="EMPRESAS" />
+            <End Role="TIPODOCUMENTO" EntitySet="TIPODOCUMENTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UBICACION_EMPRESAS_EmpresaID" Association="Self.FK_UBICACION_EMPRESAS_EmpresaID">
+            <End Role="EMPRESAS" EntitySet="EMPRESAS" />
+            <End Role="UBICACION" EntitySet="UBICACION" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UBICACION_PERSONA_PersonaID" Association="Self.FK_UBICACION_PERSONA_PersonaID">
+            <End Role="PERSONA" EntitySet="PERSONA" />
+            <End Role="UBICACION" EntitySet="UBICACION" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SOLUTIONModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="EMPRESAS">
+          <Key>
+            <PropertyRef Name="EmpresaID" />
+          </Key>
+          <Property Name="EmpresaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmpresaNombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EmpresaEstado" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PERSONA" Relationship="Self.FK_PERSONA_EMPRESAS_EmpresaID" FromRole="EMPRESAS" ToRole="PERSONA" />
+          <NavigationProperty Name="TIPODOCUMENTO" Relationship="Self.FK_TIPODOCUMENTO_EMPRESAS_EmpresaID" FromRole="EMPRESAS" ToRole="TIPODOCUMENTO" />
+          <NavigationProperty Name="UBICACION" Relationship="Self.FK_UBICACION_EMPRESAS_EmpresaID" FromRole="EMPRESAS" ToRole="UBICACION" />
+        </EntityType>
+        <EntityType Name="PERSONA">
+          <Key>
+            <PropertyRef Name="PersonaID" />
+          </Key>
+          <Property Name="PersonaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonaNombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PersonaApelliso" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PersonaNroDocumento" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EmpresaID" Type="Int32" Nullable="false" />
+          <Property Name="TipoDocumentoID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="EMPRESAS" Relationship="Self.FK_PERSONA_EMPRESAS_EmpresaID" FromRole="PERSONA" ToRole="EMPRESAS" />
+          <NavigationProperty Name="TIPODOCUMENTO" Relationship="Self.FK_PERSONA_TIPODOCUMENTO_TipoDocumentoID" FromRole="PERSONA" ToRole="TIPODOCUMENTO" />
+          <NavigationProperty Name="UBICACION" Relationship="Self.FK_UBICACION_PERSONA_PersonaID" FromRole="PERSONA" ToRole="UBICACION" />
+        </EntityType>
+        <EntityType Name="TIPODOCUMENTO">
+          <Key>
+            <PropertyRef Name="TipoDocumentoID" />
+          </Key>
+          <Property Name="TipoDocumentoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TipoDocumentoNombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EmpresaID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="EMPRESAS" Relationship="Self.FK_TIPODOCUMENTO_EMPRESAS_EmpresaID" FromRole="TIPODOCUMENTO" ToRole="EMPRESAS" />
+          <NavigationProperty Name="PERSONA" Relationship="Self.FK_PERSONA_TIPODOCUMENTO_TipoDocumentoID" FromRole="TIPODOCUMENTO" ToRole="PERSONA" />
+        </EntityType>
+        <EntityType Name="UBICACION">
+          <Key>
+            <PropertyRef Name="UbicacionID" />
+          </Key>
+          <Property Name="UbicacionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UbicacionLongitud" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UbicacionLatitud" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UbicacionObservaciones" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PersonaID" Type="Int32" Nullable="false" />
+          <Property Name="EmpresaID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="EMPRESAS" Relationship="Self.FK_UBICACION_EMPRESAS_EmpresaID" FromRole="UBICACION" ToRole="EMPRESAS" />
+          <NavigationProperty Name="PERSONA" Relationship="Self.FK_UBICACION_PERSONA_PersonaID" FromRole="UBICACION" ToRole="PERSONA" />
+        </EntityType>
+        <Association Name="FK_PERSONA_EMPRESAS_EmpresaID">
+          <End Role="EMPRESAS" Type="Self.EMPRESAS" Multiplicity="1" />
+          <End Role="PERSONA" Type="Self.PERSONA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPRESAS">
+              <PropertyRef Name="EmpresaID" />
+            </Principal>
+            <Dependent Role="PERSONA">
+              <PropertyRef Name="EmpresaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TIPODOCUMENTO_EMPRESAS_EmpresaID">
+          <End Role="EMPRESAS" Type="Self.EMPRESAS" Multiplicity="1" />
+          <End Role="TIPODOCUMENTO" Type="Self.TIPODOCUMENTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPRESAS">
+              <PropertyRef Name="EmpresaID" />
+            </Principal>
+            <Dependent Role="TIPODOCUMENTO">
+              <PropertyRef Name="EmpresaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UBICACION_EMPRESAS_EmpresaID">
+          <End Role="EMPRESAS" Type="Self.EMPRESAS" Multiplicity="1" />
+          <End Role="UBICACION" Type="Self.UBICACION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPRESAS">
+              <PropertyRef Name="EmpresaID" />
+            </Principal>
+            <Dependent Role="UBICACION">
+              <PropertyRef Name="EmpresaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PERSONA_TIPODOCUMENTO_TipoDocumentoID">
+          <End Role="TIPODOCUMENTO" Type="Self.TIPODOCUMENTO" Multiplicity="1" />
+          <End Role="PERSONA" Type="Self.PERSONA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIPODOCUMENTO">
+              <PropertyRef Name="TipoDocumentoID" />
+            </Principal>
+            <Dependent Role="PERSONA">
+              <PropertyRef Name="TipoDocumentoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UBICACION_PERSONA_PersonaID">
+          <End Role="PERSONA" Type="Self.PERSONA" Multiplicity="1" />
+          <End Role="UBICACION" Type="Self.UBICACION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PERSONA">
+              <PropertyRef Name="PersonaID" />
+            </Principal>
+            <Dependent Role="UBICACION">
+              <PropertyRef Name="PersonaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SOLUTIONEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="EMPRESAS" EntityType="Self.EMPRESAS" />
+          <EntitySet Name="PERSONA" EntityType="Self.PERSONA" />
+          <EntitySet Name="TIPODOCUMENTO" EntityType="Self.TIPODOCUMENTO" />
+          <EntitySet Name="UBICACION" EntityType="Self.UBICACION" />
+          <AssociationSet Name="FK_PERSONA_EMPRESAS_EmpresaID" Association="Self.FK_PERSONA_EMPRESAS_EmpresaID">
+            <End Role="EMPRESAS" EntitySet="EMPRESAS" />
+            <End Role="PERSONA" EntitySet="PERSONA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TIPODOCUMENTO_EMPRESAS_EmpresaID" Association="Self.FK_TIPODOCUMENTO_EMPRESAS_EmpresaID">
+            <End Role="EMPRESAS" EntitySet="EMPRESAS" />
+            <End Role="TIPODOCUMENTO" EntitySet="TIPODOCUMENTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UBICACION_EMPRESAS_EmpresaID" Association="Self.FK_UBICACION_EMPRESAS_EmpresaID">
+            <End Role="EMPRESAS" EntitySet="EMPRESAS" />
+            <End Role="UBICACION" EntitySet="UBICACION" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PERSONA_TIPODOCUMENTO_TipoDocumentoID" Association="Self.FK_PERSONA_TIPODOCUMENTO_TipoDocumentoID">
+            <End Role="TIPODOCUMENTO" EntitySet="TIPODOCUMENTO" />
+            <End Role="PERSONA" EntitySet="PERSONA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UBICACION_PERSONA_PersonaID" Association="Self.FK_UBICACION_PERSONA_PersonaID">
+            <End Role="PERSONA" EntitySet="PERSONA" />
+            <End Role="UBICACION" EntitySet="UBICACION" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SOLUTIONModelStoreContainer" CdmEntityContainer="SOLUTIONEntities1">
+          <EntitySetMapping Name="EMPRESAS">
+            <EntityTypeMapping TypeName="SOLUTIONModel.EMPRESAS">
+              <MappingFragment StoreEntitySet="EMPRESAS">
+                <ScalarProperty Name="EmpresaID" ColumnName="EmpresaID" />
+                <ScalarProperty Name="EmpresaNombre" ColumnName="EmpresaNombre" />
+                <ScalarProperty Name="EmpresaEstado" ColumnName="EmpresaEstado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PERSONA">
+            <EntityTypeMapping TypeName="SOLUTIONModel.PERSONA">
+              <MappingFragment StoreEntitySet="PERSONA">
+                <ScalarProperty Name="PersonaID" ColumnName="PersonaID" />
+                <ScalarProperty Name="PersonaNombre" ColumnName="PersonaNombre" />
+                <ScalarProperty Name="PersonaApelliso" ColumnName="PersonaApelliso" />
+                <ScalarProperty Name="PersonaNroDocumento" ColumnName="PersonaNroDocumento" />
+                <ScalarProperty Name="EmpresaID" ColumnName="EmpresaID" />
+                <ScalarProperty Name="TipoDocumentoID" ColumnName="TipoDocumentoID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TIPODOCUMENTO">
+            <EntityTypeMapping TypeName="SOLUTIONModel.TIPODOCUMENTO">
+              <MappingFragment StoreEntitySet="TIPODOCUMENTO">
+                <ScalarProperty Name="TipoDocumentoID" ColumnName="TipoDocumentoID" />
+                <ScalarProperty Name="TipoDocumentoNombre" ColumnName="TipoDocumentoNombre" />
+                <ScalarProperty Name="EmpresaID" ColumnName="EmpresaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UBICACION">
+            <EntityTypeMapping TypeName="SOLUTIONModel.UBICACION">
+              <MappingFragment StoreEntitySet="UBICACION">
+                <ScalarProperty Name="UbicacionID" ColumnName="UbicacionID" />
+                <ScalarProperty Name="UbicacionLongitud" ColumnName="UbicacionLongitud" />
+                <ScalarProperty Name="UbicacionLatitud" ColumnName="UbicacionLatitud" />
+                <ScalarProperty Name="UbicacionObservaciones" ColumnName="UbicacionObservaciones" />
+                <ScalarProperty Name="PersonaID" ColumnName="PersonaID" />
+                <ScalarProperty Name="EmpresaID" ColumnName="EmpresaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

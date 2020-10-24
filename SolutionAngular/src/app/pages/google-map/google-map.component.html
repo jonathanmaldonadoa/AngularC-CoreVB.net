@@ -1,0 +1,44 @@
+<h1>Mapa</h1>
+<hr>
+<div class="row">
+  <button class="btn btn-primary" [routerLink]="['/mapaCampturar']"
+    routerLinkActive="router-link-active">Capturar</button>
+</div>
+
+<div class="accordion mt-3" id="accordionExample">
+  <div class="card" *ngFor="let item of _ubicaciones;">
+    <div class="card-header" [attr.id]="'heading'+item.personaNroDocumento">
+      <h5 class="mb-0">
+        <button class="btn btn-link" type="button" data-toggle="collapse"
+          [attr.data-target]="'#test' + item.personaNroDocumento" aria-expanded="false"
+          [attr.aria-controls]="collapseOne">
+          {{item.tipodocumento.tipoDocumentoNombre}} {{item.personaNroDocumento}} {{item.personaNombre}}
+          {{item.personaApelliso}}
+        </button>
+        <span [routerLink]="['/mapaView']">Ver mapa</span>
+      </h5>
+    </div>
+
+    <div [attr.id]="'test' + item.personaNroDocumento" class="collapse show"
+      [attr.aria-labelledby]="'heading'+item.personaNroDocumento" data-parent="#accordionExample">
+      <div class="card-body">
+        <table class="table table-hover mt-3">
+          <thead>
+            <tr>
+              <th>longitud </th>
+              <th>latitud</th>
+              <th>obs</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item2 of item.ubicacion;">
+              <td> {{item2.ubicacionLongitud}} </td>
+              <td>{{item2.ubicacionLatitud}} </td>
+              <td>{{item2.ubicacionObservaciones}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
